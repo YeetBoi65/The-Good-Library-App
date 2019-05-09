@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/onsenui.css">
+  <link rel="stylesheet" type="text/css" href="css/onsen-css-components.min.css">
+  <script src="js/onsenui.min.js"></script>
+  <script src="js/JsBarcode.all.min.js"></script>
+
+<script>
+  window.fn = {};
+
+//slides out the side menu
+window.fn.open = function() {
+  var menu = document.getElementById('menu');
+  menu.open();
+};
+
+//loads page from menu
+window.fn.load = function(page){
+  var content = document.getElementById('content');
+  var menu = document.getElementById('menu');
+
+content.load(page).then(menu.close.bind(menu));
+
+};
+
+//Create Database
+var storage = window.localStorage;
+
+//Barcode Generator
+window.fn.barcode = function(){
+
+  var userId = document.getElementById('id-number').value;
+
+  storage.setItem("userId", userId); //Pass a name and its value to add or update that key.
+
+
+};
+
+window.fn.display = function(){
+
+  var storedId = storage.getItem("userId");
+
+  JsBarcode("#barcode", storedId, {
+    format: "codabar",
+    lineColor: "#000",
+  });
+
+};
+
+
+</script>
+
+</head>
+<body>
+  <ons-splitter>
+    <ons-splitter-side id = "menu" side = "left" width = "220px" collapse swipeable>
+      <ons-page>
+        <ons-list>
+
+          <ons-list-item onclick = "fn.load('home.html')" tappable>
+            Home
+          </ons-list-item>
+
+          <ons-list-item onclick = "fn.load('resources.html')" tappable>
+            Resources
+          </ons-list-item>
+
+          <ons-list-item onclick = "fn.load('online-resources.html')" tappable>
+            Online Resources
+          </ons-list-item>
+
+          <ons-list-item onclick = "fn.load('library-id.html')" tappable>
+            Digital ID
+          </ons-list-item>
+
+          <ons-list-item onclick = "fn.load('Volunteering-Opportunities.html')" tappable>
+            Volunteering
+          </ons-list-item>
+
+          <ons-list-item>
+            About
+          </ons-list-item>
+
+        </ons-list>
+      </ons-page>
+    </ons-splitter-side>
+
+      <ons-splitter-content id = "content" page="home.html" >
+      </ons-splitter-content>
+
+  </ons-splitter>
+
+  <template id = "home.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick= "fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+       <div class="center">
+         Salinas Library App
+        </div>
+        <div class="right">
+          Insert Search Button
+        </div>
+      </ons-toolbar>
+
+      <!-- Library ID -->
+      <div class="" style="height: 200px; padding: 1px 0 0 0;">
+        <div class="card card--material" style=" text-align: center; ">
+          <div class="card__title card--material__title">
+            Library ID
+          </div>
+          <svg id="home-digital-id"> </svg>
+
+          <script>
+            if( storage.getItem("userId") != null ){
+              var storedId = storage.getItem("userId")
+
+              JsBarcode("#home-digital-id", storedId, {
+                format: "codabar",
+                lineColor: "#000",
+              });
+
+            }
+          </script>
+
+        </div>
+
+      </div>
+
+
+
+    </ons-page>
+  </template>
+
+  <template id = "Volunteering-Opportunities.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick= "fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+       <div class="center">
+         Volunteering Opportunities
+        </div>
+        <div class="right">
+
+        </div>
+      </ons-toolbar>
+    </ons-page>
+  </template>
+
+  <template id = "resources.html">
+    <ons-page>
+      <ons-toolbar>
+        <div class="left">
+          <ons-toolbar-button onclick= "fn.open()">
+            <ons-icon icon="md-menu"></ons-icon>
+          </ons-toolbar-button>
+        </div>
+       <div class="center">
+         Resources
+        </div>
+        <div class="right">
+
+        </div>
+      </ons-toolbar>
+
+        <!--CONTENT START-->
+
+        <div class = "" style = "height: 200px; padding: 1px 0 0 0;">
+          <div class = "card card--material">
+            <div class = "card__title card--material__title">
+              Im Ethan Bradberry!
+            </div>
+            <img src = "img/ImEthanBradberry!.jpg" alt = "Onsen UI" />
+            <div class="card__content card--material__content">
+              He's Ethan Bradberry!
+            </div>
+
+          </div>
+
+          <div class = "" style = "height: 200px; padding: 1px 0 0 0;">
+            <div class = "card card--material">
+              <div class = "card__title card--material__title">
+                WOOOOOOOOOOO!
+              </div>
+              <img src = "img/DJ-Khaled.png" alt = "Onsen UI"/>
+              <div class="card__content card--material__content">
+                WOOOOOOOOOO!
+              </div>
+
+        </div>
+
+        <div class = "" style = "height: 200px; padding: 1px 0 0 0;">
+          <div class = "card card--material">
+            <div class = "card__title card--material__title">
+              Howard The Alien
+            </div>
+            <img src = "img/metal_alien.png" alt = "Onsen UI" />
+            <div class="card__content card--material__content">
+              Skinny Metal Senpai!
+            </div>
+
+        <!--CONTENT FINISH-->
+
+    </ons-page>
+  </template>
+
+<template id="online-resources.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick= "fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+     <div class="center">
+       Online Resources
+      </div>
+      <div class="right">
+
+      </div>
+    </ons-toolbar>
+
+    <ons-card>
+      <a href="https://www.hoopladigital.com">
+      <img src="img/hoopla-logo-blue.png" style="width: 100%" />
+     </a>
+      <div class="content">
+        <div>
+          Your public library at your fingertips. Anytime. Anywhere. OwO
+        </div>
+      </div>
+    </ons-card>
+
+    <ons-card>
+      <a href="https://www.lynda.com/in/linkedin-learning?src=go-pa&veh=skwd-329556378_pcrid_278908228513_pkw_lynda_pmt_e_pdv_c_ext__plc__trg__agid_5454775506_cmid_34839966_adp_1t1_net_g&trk=sem_ldctest2lillp_pkw.lynda_pmt.e_pcrid.278908228513_pdv.c_plc._trg._net.g_learning&lpk35=9137&gclid=EAIaIQobChMIiYvLoa-a3QIVFv5kCh1oCgTsEAAYASAAEgLpR_D_BwE">
+      <img src="img/Lynda.jpg" style="width: 100%; height: 100%" />
+    </a>
+    <div class="content">
+      <div>
+        Online Video Resources
+      </div>
+    </div>
+    </ons-card>
+
+    <ons-card>
+      <a href="https://www.overdrive.com/">
+      <img src="img/OverDrive.jpeg" style="width: 100%; height: 100%" />
+    </a>
+    <div class="content">
+      <div>
+        Borrow eBooks, audiobooks, and more from your local public library - anywhere, anytime. All you need is a library card.
+      </div>
+    </div>
+    </ons-card>
+
+  </ons-page>
+</template>
+
+<template id="library-id.html">
+  <ons-page>
+    <ons-toolbar>
+      <div class="left">
+        <ons-toolbar-button onclick= "fn.open()">
+          <ons-icon icon="md-menu"></ons-icon>
+        </ons-toolbar-button>
+      </div>
+     <div class="center">
+       Digital ID
+      </div>
+      <div class="right">
+
+      </div>
+    </ons-toolbar>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <p>
+        <ons-input id="id-number" modifier="underbar" placeholder="Your library Id Number" maxlenght="14" float></ons-input>
+      </p>
+
+      <p style="margin-top: 30px;">
+        <ons-button onclick="fn.barcode()">Generate Library Card</ons-button>
+      </p>
+
+<svg id="barcode"></svg>
+
+<p style="margin-top: 30px;">
+  <ons-button onclick="fn.display()">Display ID</ons-button>
+</p>
+
+    </div>
+
+
+  </ons-page>
+</template>
+
+</body>
+</html>
